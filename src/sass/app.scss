@@ -1,0 +1,83 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-weight: normal;
+    border: 0px;
+}
+
+@mixin contenedor($bgColor) {
+    width: 100%;
+    background-color: $bgColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#page {
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    @extend .principal;
+}
+
+.principal {
+    // display: grid;
+    // grid-template-columns: 300px calc(100% - 300px);
+    // grid-template-rows: auto;
+    // grid-template-areas: "menu header"
+    //     "menu content"
+    //     "menu footer";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .header {
+        grid-area: header;
+        @include contenedor($bgColor: #7d7d7d);
+    }
+
+    .menu {
+        grid-area: menu;
+        @include contenedor($bgColor: #00b847);
+        flex-direction: column;
+        position: fixed;
+        left: -100vw;
+        top: 0px;
+        width: 80vw;
+        height: 100vh;
+        transition-property: left;
+        transition-duration: 500ms;
+        transition-timing-function: linear;
+
+        &.open {
+            left: 0px;
+        }
+
+        div {
+            position: relative;
+            @include contenedor($bgColor: rgba(255, 255, 255, 0));
+            height: 100%;
+
+            button.close-btn{
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+        }
+    }
+
+    .content {
+        grid-area: content;
+        @include contenedor($bgColor: #ffffff);
+    }
+
+    .footer {
+        grid-area: footer;
+        @include contenedor($bgColor: #000000);
+
+        p {
+            color: #ffffff;
+        }
+    }
+}
