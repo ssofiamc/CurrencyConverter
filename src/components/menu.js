@@ -32,11 +32,9 @@ const menu = (navegateTo) => {
 
     const list = document.createElement('ul');
     const options = [
-        'Responsive',
-        'Ionic',
-        'Reactnative',
-        'Android',
-        'Consultar logs'
+        'Conversión de divisas',
+        'Configuración',
+        'Guardar'
     ];
     for (let item of options) {
         list.appendChild(itemMenu(item, (text) => {

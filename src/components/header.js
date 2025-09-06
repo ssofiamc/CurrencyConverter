@@ -14,7 +14,7 @@ const header = () => {
 
 
     const titulo = document.createElement('h1');
-    titulo.textContent = 'Responsive';
+    titulo.textContent = 'Currency Converter';
 
     cabecera.appendChild(menuBtn);
     cabecera.appendChild(titulo);

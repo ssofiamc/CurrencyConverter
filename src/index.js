@@ -8,26 +8,18 @@ import footer from './components/footer.js';
 import inicioPage from './pages/inicioPage.js';
 import ionicPage from './pages/ionicPage.js';
 import reactnativePage from './pages/reactnativePage.js';
-import androidPage from './pages/androidPage.js';
-import logPage from './pages/logPage.js';
 
 const routesPages = (namePage) => {
     const content = document.getElementById('content-page');
     content.innerHTML = '';
     switch (namePage) {
-        case 'Ionic':
+        case 'Configuración':
             content.appendChild(ionicPage());
             break;
-        case 'Reactnative':
+        case 'Guardar':
             content.appendChild(reactnativePage());
-            break;
-        case 'Android':
-            content.appendChild(androidPage());
-            break;
-        case 'Consultar logs':
-            content.appendChild(logPage());
-            break;
-        default: //'Responsive' | 'defaul'
+            break;    
+        default: 
             content.appendChild(inicioPage());
             break;
     }

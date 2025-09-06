@@ -2,7 +2,7 @@ const ionicPage = ()=>{
     const contentPage = document.createElement('section');
 
     const titulo = document.createElement('h2');
-    titulo.textContent = 'Aplicaciones en ionic';
+    titulo.textContent = 'Configuración';
 
     contentPage.appendChild(titulo);
     return contentPage;
