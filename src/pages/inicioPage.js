@@ -105,6 +105,5 @@ form.addEventListener('submit', (e) => {
 
 // Agregar todo al body
 contentPage.appendChild(form);
-document.body.appendChild(contentPage);
 
 export default contentPage;

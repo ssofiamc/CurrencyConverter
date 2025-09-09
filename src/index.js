@@ -5,24 +5,24 @@ import menu from './components/menu.js';
 import header from './components/header.js';
 
 import inicioPage from './pages/inicioPage.js';
-import ionicPage from './pages/ionicPage.js';
-import reactnativePage from './pages/reactnativePage.js';
+// import ionicPage from './pages/ionicPage.js';
+// import reactnativePage from './pages/reactnativePage.js';
 
-const routesPages = (namePage) => {
-    const content = document.getElementById('content-page');
-    content.innerHTML = '';
-    switch (namePage) {
-        case 'Configuración':
-            content.appendChild(ionicPage());
-            break;
-        case 'Guardar':
-            content.appendChild(reactnativePage());
-            break;    
-        default: 
-            content.appendChild(inicioPage());
-           break;
-    }
-};
+// const routesPages = (namePage) => {
+//     const content = document.getElementById('content-page');
+//     content.innerHTML = '';
+//     switch (namePage) {
+//         case 'Configuración':
+//             content.appendChild(ionicPage());
+//             break;
+//         case 'Guardar':
+//             content.appendChild(reactnativePage());
+//             break;    
+//         default: 
+//             content.appendChild(inicioPage());
+//            break;
+//     }
+// };
 
 document.addEventListener('DOMContentLoaded', () => {
     const page = document.getElementById('page');
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         routesPages(namePage)
     }));
 
-    page.appendChild(inicioPage());
+    page.appendChild(inicioPage); // <-- Sin paréntesis
 
     const contentPage = document.createElement('main');
     contentPage.setAttribute('id', 'content-page');
