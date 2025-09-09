@@ -1,43 +1,110 @@
-import ejemplo from '../services/endpoints.js';
+const tasas = {
+  USD: { EUR: 0.9, COP: 4000 },
+  EUR: { USD: 1.1, COP: 4500 },
+  COP: { USD: 0.00025, EUR: 0.00022 },
+};
 
-const inicioPage = ()=>{
-    const contentPage = document.createElement('section');
+// Crear contenedor principal
+const contentPage = document.createElement('section');
 
-    const titulo = document.createElement('h2');
-    const formulario = document.createElement('form');
+// Título
+const titulo = document.createElement('h2');
+titulo.textContent = 'Ingresa los datos para convertir tu moneda';
+contentPage.appendChild(titulo);
 
-    titulo.textContent = 'Conversor de divisas';
-    formulario.setAttribute('id', 'formulario');
-    formulario.innerHTML = `
-        <div class="cambio">
-        <div class="cambio">
-            <label>Ingrese monto a convertir:</label>
-            <input placeholder="Monto" type="number" id="monto" name="monto" required>
-        </div>
-            <label for="Origen">Moneda de origen:</label>
-            <select id="Origen" name="Origen">
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">COP</option>
-            </select>
-        </div>
-        <div class="cambio">
-            <label for="Destino">Moneda de destino:</label>
-            <select id="Destino" name="Destino">
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">COP</option>
-            </select>
-        </div>
-        <button type="submit" id="convertirBtn">Convertir</button>
-    `;
+// Formulario
+const form = document.createElement('form');
 
-    contentPage.appendChild(titulo);
-    contentPage.appendChild(formulario);
+// Input monto
+const montoLabel = document.createElement('label');
+montoLabel.textContent = 'Monto: ';
+const inputNumero = document.createElement('input');
+inputNumero.type = 'number';
+inputNumero.placeholder = 'Ingrese un valor';
+form.appendChild(montoLabel);
+form.appendChild(inputNumero);
+form.appendChild(document.createElement('br'));
 
+// Select moneda origen
+const origenLabel = document.createElement('label');
+origenLabel.textContent = 'Origen: ';
+const monedaOrigen = document.createElement('select');
+['USD', 'EUR', 'COP'].forEach(moneda => {
+  const option = document.createElement('option');
+  option.value = moneda;
+  option.textContent =
+    moneda === 'USD' ? 'Dólares (USD)' :
+    moneda === 'EUR' ? 'Euros (EUR)' :
+    'Pesos (COP)';
+  monedaOrigen.appendChild(option);
+});
+form.appendChild(origenLabel);
+form.appendChild(monedaOrigen);
+form.appendChild(document.createElement('br'));
 
-    ejemplo();
-    return contentPage;
-}
+// Select moneda destino
+const destinoLabel = document.createElement('label');
+destinoLabel.textContent = 'Destino: ';
+const monedaDestino = document.createElement('select');
+['USD', 'EUR', 'COP'].forEach(moneda => {
+  const option = document.createElement('option');
+  option.value = moneda;
+  option.textContent =
+    moneda === 'USD' ? 'Dólares (USD)' :
+    moneda === 'EUR' ? 'Euros (EUR)' :
+    'Pesos (COP)';
+  monedaDestino.appendChild(option);
+});
+form.appendChild(destinoLabel);
+form.appendChild(monedaDestino);
+form.appendChild(document.createElement('br'));
 
-export default inicioPage;
+// Botón
+const boton = document.createElement('button');
+boton.type = 'submit';
+boton.textContent = 'Convertir';
+form.appendChild(boton);
+
+// Resultado
+const resultadoDiv = document.createElement('div');
+resultadoDiv.style.marginTop = '1em';
+form.appendChild(resultadoDiv);
+
+// Lógica del conversor
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  resultadoDiv.textContent = '';
+
+  const monto = parseFloat(inputNumero.value);
+  const origen = monedaOrigen.value;
+  const destino = monedaDestino.value;
+
+  if (isNaN(monto) || monto <= 0) {
+    resultadoDiv.textContent = '⚠️ Ingrese un monto válido mayor que 0';
+    resultadoDiv.style.color = 'red';
+    return;
+  }
+
+  if (origen === destino) {
+    resultadoDiv.textContent = '⚠️ La moneda de origen y destino no pueden ser iguales';
+    resultadoDiv.style.color = 'red';
+    return;
+  }
+
+  const tasa = tasas[origen]?.[destino];
+  if (!tasa) {
+    resultadoDiv.textContent = '⚠️ Conversión no disponible';
+    resultadoDiv.style.color = 'red';
+    return;
+  }
+
+  const convertido = monto * tasa;
+  resultadoDiv.style.color = 'black';
+  resultadoDiv.textContent = `${monto} ${origen} = ${convertido.toLocaleString()} ${destino}`;
+});
+
+// Agregar todo al body
+contentPage.appendChild(form);
+document.body.appendChild(contentPage);
+
+export default contentPage;
